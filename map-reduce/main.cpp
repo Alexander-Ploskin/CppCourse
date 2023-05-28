@@ -4,6 +4,7 @@
 #include <omp.h>
 #include <functional>
 #include <cmath>
+#include <cassert>
 
 // The map function applies a user-defined unary function f to each element of the data vector.
 template<typename T, typename F>
@@ -102,11 +103,7 @@ int main() {
         auto parallel_end_time = omp_get_wtime();
         auto parallel_elapsed_time = parallel_end_time - parallel_start_time;
 
-        if (parallel_result != result) {
-            std::cout << parallel_result << std::endl;
-            std::cout << result << std::endl;
-            throw;
-        }
+        assert(parallel_result == result);
 
         std::cout << "Input size: " << i << std::endl;
         std::cout << "Elapsed time: " << elapsed_time << std::endl;
